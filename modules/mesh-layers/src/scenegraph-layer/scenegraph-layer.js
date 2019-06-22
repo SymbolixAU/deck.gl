@@ -18,10 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-/* global fetch */
 import {Layer, createIterable} from '@deck.gl/core';
 import {fp64, ScenegraphNode, isWebGL2, pbr, log} from '@luma.gl/core';
-import {load} from '@loaders.gl/core';
 
 import {MATRIX_ATTRIBUTES} from '../utils/matrix';
 
@@ -34,14 +32,6 @@ const DEFAULT_COLOR = [255, 255, 255, 255];
 
 const defaultProps = {
   scenegraph: {type: 'object', value: null, async: true},
-
-  fetch: (url, {propName, layer}) => {
-    if (propName === 'scenegraph') {
-      return load(url, layer.getLoadOptions());
-    }
-
-    return fetch(url).then(response => response.json());
-  },
 
   getScene: scenegraph => (scenegraph && scenegraph.scenes ? scenegraph.scenes[0] : scenegraph),
   getAnimator: scenegraph => scenegraph && scenegraph.animator,
